@@ -6,6 +6,7 @@ public class CounterEntry {
     int dif=0;
     byte[] value;
     int length=0;
+    boolean isTime=false;
 boolean isDIF=true;
 int storageNumber=0;
 int tariff=0;
@@ -132,6 +133,7 @@ String unit="";
                     if((vif & 0b100) ==0){
                         return (float) Math.pow(10,(vif & 0b11)-3);
                     }else {
+                        isTime=true;
                         return 1.0f;}
 
                 }
@@ -184,7 +186,7 @@ float multiply=getMultiplyer();
     public String toString() {
       //  String retString="DIF:"+ byteArray2HexString(new byte[]{(byte) (this.dif & 0x7f)})+",VIF:"+ byteArray2HexString(new byte[]{(byte) (this.vif & 0x7f)})+ " = "+ Integer.toBinaryString(this.vif) + " = " + getValue();
         String retString=String.valueOf(getValue());
-
+        if(isTime)return parseDateTime(this.value);
         return retString;
     }
     private String parseDateTime(byte[] data) {

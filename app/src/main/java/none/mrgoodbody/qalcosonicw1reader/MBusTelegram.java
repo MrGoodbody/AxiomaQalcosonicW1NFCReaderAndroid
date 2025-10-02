@@ -265,12 +265,12 @@ public class MBusTelegram {
         CounterEntry[] entrys = new CounterEntry[]{};
         while (blockIndex < data.length) {
             CounterEntry acEntry = new CounterEntry();
-            acEntry.dif=data[blockIndex];
-            acEntry.dataField = (data[blockIndex] & 0xf);
-            acEntry.functionField = ((data[blockIndex] >>> 4) & 3);
+            acEntry.dif=Byte.toUnsignedInt(data[blockIndex]);
+            acEntry.dataField = (acEntry.dif & 0xf);
+            acEntry.functionField = ((acEntry.dif >>> 4) & 3);
 //System.out.println("DIF: "+data[blockIndex]);
 
-            while ((data[blockIndex] >>> 7) == 1) {
+            while ((data[blockIndex] >>> 7) >= 1) {
 
                 blockIndex++;
 
@@ -281,7 +281,7 @@ public class MBusTelegram {
 
 
        //     System.out.println("Geschiftet"+(Byte.toUnsignedInt(data[blockIndex]) >>> 7));
-            while (((Byte.toUnsignedInt(data[blockIndex])) >>> 7) == 1) {
+            while ((data[blockIndex] >>> 7) >= 1) {
 
                 blockIndex++;
 
