@@ -57,7 +57,7 @@ public class MBusParser {
         if(paket[paket.length-1]!=0x16)return false;
         if(paket[1]!=paket[2])return false;
         if(paket[3]!=0x68) return false;
-        if(paket.length-6!=paket[1])return false;
+        if(paket.length-6!=Byte.toUnsignedInt(paket[1]))return false;
         return calculateChecksum(Arrays.copyOfRange(paket, 0, paket.length-2)) == paket[paket.length-2];
 
 
