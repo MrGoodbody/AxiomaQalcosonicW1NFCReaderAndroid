@@ -148,7 +148,12 @@ float multiply=getMultiplyer();
 //multiply=1f;
         String bcdValue="";
         for(int i =0; i<value.length;i++){
-            binaryValue|=(Byte.toUnsignedInt(value[i])) << (i*8);
+            if(i==value.length-1){
+                binaryValue |= ((value[i])) << (i * 8);
+            }else {
+                binaryValue |= (Byte.toUnsignedInt(value[i])) << (i * 8);
+            }
+            //System.out.println(Integer.toBinaryString(binaryValue));
         }
         for(int i =0; i<value.length;i++){
             bcdValue+=String.valueOf(((value[i] >>> 8) & 0xf) )+String.valueOf((value[i]  & 0xf));
